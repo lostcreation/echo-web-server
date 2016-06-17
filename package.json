@@ -6,13 +6,13 @@
     "echo",
     "server"
   ],
-  "main": "lib/index.js",
+  "main": "lib/echo-web-server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./lib/index.js",
+    "start": "node ./lib/echo-web-server.js",
     "build": "babel src -d lib",
-    "node6": "nodemon ./src/index.js",
-    "watch": "nodemon ./lib/index.js"
+    "node6": "nodemon ./src/echo-web-server.js",
+    "watch": "nodemon ./lib/echo-web-server.js"
   },
   "author": "Matthew McMahon",
   "license": "MITNFA",
