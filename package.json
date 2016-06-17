@@ -1,0 +1,23 @@
+{
+  "name": "echo-web-server",
+  "version": "1.0.0",
+  "description": "Minimilistic web server logs any request it recieves to the console and echos that request back to the user in a web page. No dependencies for deployment; minimal dependencies for development.",
+  "keywords": [
+    "echo",
+    "server"
+  ],
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./lib/index.js",
+    "build": "babel src -d lib",
+    "watch": "nodemon ./src/index.js"
+  },
+  "author": "Matthew McMahon",
+  "license": "MITNFA",
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
+    "nodemon": "^1.9.2"
+  }
+}
