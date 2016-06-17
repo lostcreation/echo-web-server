@@ -31,7 +31,7 @@ const server = http.createServer((req, res) => {
 </html>
 ` // END HTMLTemplateString
 
-  console.log(`Client Requsted: ${url}`)
+  console.log(`Client Requested: ${url}`)
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html')
   res.end(HTMLTemplateString)
