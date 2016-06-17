@@ -4,18 +4,20 @@ Echo Web Server
 **echo-web-server** is a minimalistic [Node.js&reg;][1] web server that logs client requests to the terminal and echos them back to the client as a basic HTML page.
 Deployment can be as simple as copying a single script file, `lib/echo-web-server.js`, to the desired location and executing it with whatever version of *Node.js* happens to be installed.
 
-The [ES2015][2] source code in `src` is fully compatible with [*Node.js* v6][3], and later, without transformation or runtime flags.
+The [ES2015][2] source code in `src` is fully compatible with [*Node.js* v6][3] without transformation or runtime flags.
 Developer dependencies, [`babel-cli`][4], [`babel-preset-es2015`][5], and [`nodemon`][6], are necessary only if you want to modify the *ES6* source code and then run Echo on a *v4*, or earlier, *Node.js* runtime.
 
 
 Single-File Use
 ---------------
 You can simply copy `echo-web-server.js` from `lib` to any location you want and execute an Echo server by typing `node echo-web-server.js`.
-Echo will start logging any requests it recieves to the terminal. For example:
+Echo will start logging any requests it recieves to the terminal.
 
-    Client Requested: /my/request/is super!
+For example, if a client requests `http://localhost:8080/my/request/is super`, Echo will log the following to the console:
 
-Echo will then *echo* those requests back to the client in a HTML page, similar to the following:
+    Client [127.0.0.1] Requested: /my/request/is super!
+
+And send a HTML page like the following to the client:
 
     You sent the request:
         http://localhost:8080/my/request/is super!
