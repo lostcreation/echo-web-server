@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>${url}</title>
+    <title>Echo Web Server</title>
     <style>
       #sent, #recieved {
         margin-left: 2.5em;
@@ -25,13 +25,13 @@ const server = http.createServer((req, res) => {
   <body>
     <p>You sent the request:</p>
     <div id="sent"></div>
-    <p>I recieved it as:</p>
+    <p>I recieved the request:</p>
     <div id="recieved">http://${hostname}:${port}${url}</div>
   </body>
 </html>
 ` // END HTMLTemplateString
 
-  console.log(`User Requsted: ${url}`)
+  console.log(`Client Requsted: ${url}`)
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html')
   res.end(HTMLTemplateString)
