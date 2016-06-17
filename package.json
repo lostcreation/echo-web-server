@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./lib/index.js",
     "build": "babel src -d lib",
-    "watch": "nodemon ./src/index.js"
+    "node6": "nodemon ./src/index.js",
+    "watch": "nodemon ./lib/index.js"
   },
   "author": "Matthew McMahon",
   "license": "MITNFA",
