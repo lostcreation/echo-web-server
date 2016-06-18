@@ -26,12 +26,13 @@ And send a HTML page like the following to the client:
 
 Scripts
 -------
-* `start`: Starts the web server and begins echoing client requests.
 * `build`: Transforms the *ES6* source code in `src` into *ES5*-compatible source code in `lib`.
   You **must** install the dev dependencies before building.
+* `start`: Starts the web server and begins echoing client requests.
 * `watch`: Uses `nodemon` to watch the `lib` folder and restarts Echo if anything changes.
-* `node6`: Uses `nodemon` to watch the `src` folder and restarts Echo if anything changes.
+* `start6`: Starts the web server using the ES6 source files directly, and begins echoing client requests.
   There's no need to transform the *ES6* source code when running on *Node v6* or newer.
+* `watch6`: Uses `nodemon` to watch the ES6 `src` folder and restarts Echo if anything changes.
 
 
 Customization
