@@ -11,7 +11,7 @@ const server = http.createServer((req, res) => {
     <meta charset="utf-8">
     <title>Echo Web Server</title>
     <style>
-      #sent, #recieved {
+      #sent, #received {
         margin-left: 2.5em;
         font-family: monospace;
       }
@@ -25,8 +25,8 @@ const server = http.createServer((req, res) => {
   <body>
     <p>You sent the request:</p>
     <div id="sent"></div>
-    <p>I recieved the request:</p>
-    <div id="recieved">http://${hostname}:${port}${url}</div>
+    <p>I received the request:</p>
+    <div id="received">http://${hostname}:${port}${url}</div>
   </body>
 </html>
 ` // END HTMLTemplateString
