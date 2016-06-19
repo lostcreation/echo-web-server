@@ -13,7 +13,7 @@ Single-File Use
 You can simply copy `echo-web-server.js` from `lib` to any location you want and execute an Echo server by typing `node echo-web-server.js`.
 Echo will start logging any requests it recieves to the terminal.
 
-For example, if a client requests `http://localhost:8080/my/request/is super`, Echo will log the following to the console:
+For example, if a client requests `http://localhost:8080/my/request/is super`, Echo will log the following to the terminal:
 
     Client [127.0.0.1] Requested: /my/request/is super!
 
