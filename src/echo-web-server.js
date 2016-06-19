@@ -24,7 +24,7 @@ const server = http.createServer((req, res) => {
   <body>
     <p>You sent the request:</p>
     <pre id="sent"></pre>
-    <p>I received the request:</p>
+    <p>I saw the request:</p>
     <pre id="received">http://${hostname}:${port}${url}</pre>
   </body>
 </html>
