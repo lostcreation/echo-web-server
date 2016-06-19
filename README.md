@@ -11,17 +11,17 @@ Developer dependencies, [`babel-cli`][4], [`babel-preset-es2015`][5], and [`node
 Single-File Use
 ---------------
 You can simply copy `echo-web-server.js` from `lib` to any location you want and execute an Echo server by typing `node echo-web-server.js`.
-Echo will start logging any requests it recieves to the terminal.
+Echo will start logging any requests it receives to the terminal.
 
 For example, if a client requests `http://localhost:8080/my/request/is super`, Echo will log the following to the terminal:
 
     Client [127.0.0.1] Requested: /my/request/is super!
 
-And send a HTML page like the following to the client:
+And send a 404 HTML page with information about the request to the client:
 
     You sent the request:
         http://localhost:8080/my/request/is super!
-    Echo recieved the request as:
+    Echo received the request as:
         http://0.0.0.0:8080/my/request/is super!
 
 Scripts
