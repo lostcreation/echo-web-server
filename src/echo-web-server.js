@@ -34,6 +34,7 @@ const server = http.createServer((req, res) => {
   console.log(`Client [${req.connection.remoteAddress}] Requested: ${url}`)
   res.statusCode = 200
   res.setHeader('Content-Type', 'text/html')
+  res.setHeader('Cache-Control', 'no-cache')
   res.end(HTMLTemplateString)
 })
 
