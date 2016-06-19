@@ -21,7 +21,7 @@ And send a 404 HTML page with information about the request to the client:
 
     You sent the request:
         http://localhost:8080/my/request/is super!
-    Echo received the request as:
+    I received the request:
         http://0.0.0.0:8080/my/request/is super!
 
 Scripts
