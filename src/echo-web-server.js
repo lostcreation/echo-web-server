@@ -26,9 +26,9 @@ const server = http.createServer((req, res) => {
       }
     </style>
     <script>
-      window.onload = function () {
+      window.addEventListener("load", function (event) {
         document.getElementById("sent").textContent = decodeURI(document.URL)
-      }
+      });
     </script>
   </head>
   <body>
