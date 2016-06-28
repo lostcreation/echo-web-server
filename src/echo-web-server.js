@@ -2,6 +2,17 @@ const http     = require('http')
 const hostname = process.env['ECHO_WEB_SERVER_HOST'] || '0.0.0.0'
 const port     = process.env['ECHO_WEB_SERVER_PORT'] || '8080'
 
+function escapeHTML (str) {
+        return [ [/&/g, '&amp;']
+               , [/>/g, '&gt;']
+               , [/</g, '&lt;']
+               , [/"/g, '&quot;']
+               , [/'/g, '&#39;']
+               , [/'/g, '&#39;']
+               , [/\`/g, '&#96;']
+               ].reduce((p, c) => p.replace(...c), str)
+      }
+
 const server = http.createServer((req, res) => {
   const url = decodeURI(req.url)
   const HTMLTemplateString =
@@ -16,8 +27,9 @@ const server = http.createServer((req, res) => {
       }
     </style>
     <script>
+      ${escapeHTML.toString()}
       window.onload = function () {
-        document.getElementById("sent").innerHTML = decodeURI(document.URL)
+       document.getElementById("sent").textContent = decodeURI(document.URL)
       }
     </script>
   </head>
@@ -25,7 +37,7 @@ const server = http.createServer((req, res) => {
     <p>You sent the request:</p>
     <pre id="sent"></pre>
     <p>I saw the request:</p>
-    <pre id="received">http://${hostname}:${port}${url}</pre>
+    <pre id="received">${escapeHTML(`http://${hostname}:${port}${url}`)}</pre>
   </body>
 </html>
 ` // END HTMLTemplateString
@@ -40,3 +52,4 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`)
 })
+
