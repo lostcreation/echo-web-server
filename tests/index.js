@@ -1,1 +1,1 @@
-console.log("Need to test eg: http://localhost:8080/<script>alert('Leet Hax!')</script>")
+console.log("Requests like [http://localhost:8080/<script>alert('Leet Hax!')</script>] shouldn't inject HTML.")
