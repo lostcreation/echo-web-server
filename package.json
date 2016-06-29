@@ -8,7 +8,7 @@
   ],
   "main": "lib/echo-web-server.js",
   "scripts": {
-    "test"   : "echo \"Error: no test specified\" && exit 1",
+    "test"   : "babel-node ./tests/index.js",
     "build"  : "babel src -d lib",
     "start"  : "node ./lib/echo-web-server.js",
     "start6" : "node ./src/echo-web-server.js",
