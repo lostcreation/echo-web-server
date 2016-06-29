@@ -1,13 +1,16 @@
-const requestOptions = {
-  'host': 'localhost',
-  'port': '2000'
-}
+const ECHO_WEB_SERVER_HOST = '0.0.0.0' // any IP, we'll actually request on localhost.
+const ECHO_WEB_SERVER_PORT = '2000'
 
 const serverOptions = {
   env: {
-    ECHO_WEB_SERVER_HOST: '0.0.0.0',
-    ECHO_WEB_SERVER_PORT: requestOptions.port
+    ECHO_WEB_SERVER_HOST,
+    ECHO_WEB_SERVER_PORT
   }
+}
+
+const requestOptions = {
+  'host': 'localhost',
+  'port': ECHO_WEB_SERVER_PORT
 }
 
 const http = require('http')
