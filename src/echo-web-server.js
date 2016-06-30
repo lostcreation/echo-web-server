@@ -15,6 +15,7 @@ function escapeHTML (str) {
 
 const server = http.createServer((req, res) => {
   const url = decodeURI(req.url)
+  const client = req.connection.remoteAddress
   const HTMLTemplateString = `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,7 +41,11 @@ const server = http.createServer((req, res) => {
 </html>
 ` // END HTMLTemplateString
 
-  console.log(`Client [${req.connection.remoteAddress}] Requested: ${url}`)
+  // Log client request
+  console.log(`Client [${client}] Requested: ${url}`)
+  process.send && process.send({ client, url })
+
+  // Send response
   res.statusCode = 404
   res.setHeader('Content-Type', 'text/html')
   res.setHeader('Cache-Control', 'no-cache')
@@ -49,4 +54,5 @@ const server = http.createServer((req, res) => {
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`)
+  process.send && process.send({ 'ready' : true })
 })

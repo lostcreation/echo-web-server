@@ -1,21 +1,10 @@
 const ECHO_WEB_SERVER_HOST = '127.0.0.1'
 const ECHO_WEB_SERVER_PORT = '2000'
 
-const serverOptions = {
-  env: {
-    ECHO_WEB_SERVER_HOST,
-    ECHO_WEB_SERVER_PORT
-  }
-}
-
 const http = require('http')
-const server = require('child_process').fork('./lib/echo-web-server.js', [], serverOptions)
-server.on('close', (signal) => {
-  console.log(`child process terminated due to receipt of signal ${signal}`)
-})
-server.on('error', (err) => {
-  console.log('Failed to start web server.')
-})
+const fork = require('child_process').fork
+
+const startServer = require('./spawn-server.js').start
 
 const tests = {
   run   : 0,
@@ -47,15 +36,18 @@ function onSuccess(res) {
       tests.pass++
       resolve()
     })
+    res.on('error', reject)
   })
 }
 
 function onFailure(e) {
   console.log(`Problem with request: ${e.message}`);
   tests.fail++
+  return (e)
 }
 
 function tryRequest (path = '/') {
+  console.log(`Requesting: ${path}`)
   const r = {
     'path': encodeURI(path),
     'host': ECHO_WEB_SERVER_HOST,
@@ -66,11 +58,15 @@ function tryRequest (path = '/') {
   })
 }
 
-tryRequest('/')
-  .then(onSuccess)
-  .catch(onFailure)
-  .then(report)
-  .then(server.kill)
+let server = startServer(ECHO_WEB_SERVER_HOST, ECHO_WEB_SERVER_PORT)
+
+server.stop()
+
+// server.promise.then(tryRequest('/'))
+//   .then(onSuccess)
+//   .catch(onFailure)
+//   .then(report)
+//   .then(server.stop)
 
 // tryRequest("/<script>alert('Leet Hax!')</script>")
 //   .then(onSuccess)
