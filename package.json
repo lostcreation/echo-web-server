@@ -8,18 +8,19 @@
   ],
   "main": "lib/echo-web-server.js",
   "scripts": {
-    "test"   : "babel-node ./tests/index.js",
-    "build"  : "babel src -d lib",
-    "start"  : "node ./lib/echo-web-server.js",
-    "start6" : "node ./src/echo-web-server.js",
-    "watch"  : "nodemon ./lib/echo-web-server.js",
-    "watch6" : "nodemon ./src/echo-web-server.js"
+    "test": "babel-node ./tests/index.js",
+    "build": "babel src -d lib",
+    "start": "node ./lib/echo-web-server.js",
+    "start6": "node ./src/echo-web-server.js",
+    "watch": "nodemon ./lib/echo-web-server.js",
+    "watch6": "nodemon ./src/echo-web-server.js"
   },
   "author": "Matthew McMahon",
   "license": "MITNFA",
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-preset-es2015": "^6.9.0",
+    "blue-tape": "^0.2.0",
     "nodemon": "^1.9.2"
   }
 }
