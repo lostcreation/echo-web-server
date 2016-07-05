@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/loggers/to-console.js"],"names":[],"mappings":";;AAAA,OAAO,OAAP,GAAiB,gBAAqB;AAAA,MAAlB,MAAkB,QAAlB,MAAkB;AAAA,MAAV,GAAU,QAAV,GAAU;;AACpC,UAAQ,GAAR,cAAuB,MAAvB,qBAA6C,GAA7C;AACD,CAFD","file":"to-console.js","sourcesContent":["module.exports = ({ client, url }) => {\n  console.log(`Client [${client}] Requested: ${url}`)\n}\n"]}
