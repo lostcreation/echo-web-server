@@ -1,58 +1,27 @@
-const http     = require('http')
-const hostname = process.env['ECHO_WEB_SERVER_HOST'] || '0.0.0.0'
+// ENV
+const hostName = process.env['ECHO_WEB_SERVER_HOST'] || '0.0.0.0'
 const port     = process.env['ECHO_WEB_SERVER_PORT'] || '8080'
 
-function escapeHTML (str) {
-  return [ [/&/g, '&amp;']
-         , [/>/g, '&gt;']
-         , [/</g, '&lt;']
-         , [/"/g, '&quot;']
-         , [/'/g, '&#39;']
-         , [/'/g, '&#39;']
-         , [/\`/g, '&#96;']
-         ].reduce((p, c) => p.replace(...c), str)
-}
+// Dependencies
+const http    =   require('http')
+const loggers = [ require("./loggers/to-console.js")
+                , require("./loggers/to-parent-process.js")
+                , require("./loggers/as-html.js")
+                ]
 
+// Server
 const server = http.createServer((req, res) => {
-  const url = decodeURI(req.url)
-  const client = req.connection.remoteAddress
-  const HTMLTemplateString = `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Echo Web Server</title>
-    <style>
-      #sent, #received {
-        margin-left: 2.5em;
-      }
-    </style>
-    <script>
-      window.addEventListener("load", function (event) {
-        document.getElementById("sent").textContent = decodeURI(document.URL)
-      });
-    </script>
-  </head>
-  <body>
-    <p>You sent the request:</p>
-    <pre id="sent"></pre>
-    <p>I saw the request:</p>
-    <pre id="received">${escapeHTML(`http://${hostname}:${port}${url}`)}</pre>
-  </body>
-</html>
-` // END HTMLTemplateString
-
-  // Log client request
-  console.log(`Client [${client}] Requested: ${url}`)
-  process.send && process.send({ client, url })
-
-  // Send response
+  const requestInfo = Object.freeze({ hostName, port, res
+                                    , client : req.connection.remoteAddress
+                                    , url    : decodeURI(req.url)
+                                    })
   res.statusCode = 404
-  res.setHeader('Content-Type', 'text/html')
   res.setHeader('Cache-Control', 'no-cache')
-  res.end(HTMLTemplateString)
+  loggers.forEach((log) => log(requestInfo))
+  res.end()
 })
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`)
-  process.send && process.send({ 'ready' : true })
+server.listen(port, hostName, () => {
+  console.log(`Server running at http://${hostName}:${port}/`)
+  process.send && process.send({ hostName, port })
 })
