@@ -1,6 +1,7 @@
 // Dependencies
 const http = require('http')
-const asHTML = require('./loggers/asHTML.js')
+const asHTML = require('./loggers/asHTML')
+const toConsole = require('./loggers/toConsole')
 
 // Default Loggers
 const loggers = []
@@ -58,20 +59,3 @@ function start (port = '8080', host = '0.0.0.0', callback) {
 function addLogger (logger) {
   loggers.push(logger)
 }
-
-
-
-
-// Loggers ====================================================================
-
-/**
- * Logs request information to the console.
- * @param {Object} requestInfo        - Logging info for the the request.
- * @param {string} requestInfo.client - The IP address for the client.
- * @param {string} requestInfo.url    - The path requested by the client.
- */
-function toConsole ({ client, url }) {
-  console.log(`Client [${client}] Requested: ${url}`)
-}
-
-
