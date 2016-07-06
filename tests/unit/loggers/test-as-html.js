@@ -1,7 +1,7 @@
 console.log(`Current directory: ${process.cwd()}`);
 
 const test   = require('blue-tape')
-const asHTML = require('../../../src/echo-web-server.js').asHTML
+const asHTML = require('../../../src/loggers/asHTML.js')
 
 
 function stubRes() {
@@ -18,7 +18,7 @@ function stubRes() {
 
 test('Wellformed Request', (t) => {
   const res = stubRes()
-  const req = { hostName: "test"
+  const req = { host: "test"
               , port: "80"
               , url: "/first-test"
               , res
@@ -28,9 +28,13 @@ test('Wellformed Request', (t) => {
     , 'text/html'
     , 'Should have Content-Type "text/html".'
     )
-  t.notEqual(res.body.indexOf(`http://${req.hostName}:${req.port}${req.url}`)
+  t.notEqual(res.body.indexOf(`http://${req.host}:${req.port}${req.url}`)
     , -1
-    , 'Should contain the requested URL in `res.body`.'
+    , `'Should contain the requested URL in res.body.'
+
+${res.body}
+
+`
     )
   t.end()
 })
@@ -38,7 +42,7 @@ test('Wellformed Request', (t) => {
 test('Attempt to inject HTML', (t) => {
   const res = stubRes()
   const url = `/<script>alert("Leet Hax!")</script>`
-  asHTML({ hostName: "test"
+  asHTML({ host: "test"
          , port: "80"
          , url: url
          , res
