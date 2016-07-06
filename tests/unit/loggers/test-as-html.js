@@ -30,7 +30,7 @@ test('Wellformed Request', (t) => {
     )
   t.notEqual(res.body.indexOf(`http://${req.host}:${req.port}${req.url}`)
     , -1
-    , `'Should contain the requested URL in res.body.`)
+    , `Should contain the requested URL in res.body.`)
   t.end()
 })
 
