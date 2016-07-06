@@ -1,25 +1,38 @@
 {
   "name": "echo-web-server",
   "version": "1.0.0",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/lostcreation/echo-web-server.git"
+  },
   "description": "Minimilistic web server logs any request it recieves to the console and echos that request back to the user in a web page. No dependencies for deployment; minimal dependencies for development.",
   "keywords": [
     "echo",
     "server"
   ],
-  "main": "lib/echo-web-server.js",
+  "main": "./lib/echo-web-server.js",
+  "bin": {
+    "echo-web-server": "./bin/echo-web-server"
+  },
+  "engines": {
+    "node": "*"
+  },
   "scripts": {
-    "test"   : "babel-node ./tests/index.js",
-    "build"  : "babel src -d lib",
-    "start"  : "node ./lib/echo-web-server.js",
-    "start6" : "node ./src/echo-web-server.js",
-    "watch"  : "nodemon ./lib/echo-web-server.js",
-    "watch6" : "nodemon ./src/echo-web-server.js"
+    "test": "babel-node ./tests/index.js",
+    "build": "babel ./src -d ./lib",
+    "start": "node ./lib/echo-web-server.js",
+    "start6": "node ./src/echo-web-server.js",
+    "watch": "nodemon ./lib/echo-web-server.js",
+    "watch6": "nodemon ./src/echo-web-server.js"
   },
   "author": "Matthew McMahon",
   "license": "MITNFA",
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-preset-es2015": "^6.9.0",
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
     "nodemon": "^1.9.2"
-  }
+  },
+  "private": true
 }
