@@ -36,6 +36,7 @@ function start (port = '8080', host = '0.0.0.0', callback) {
                                       })
     res.statusCode = 404
     res.setHeader('Cache-Control', 'no-cache')
+    res.setHeader('Connection', 'close')
     loggers.forEach((log) => log(requestInfo))
     res.end()
   })
