@@ -1,3 +1,20 @@
+module.exports = asHTML
+
+/**
+ * Properly escapes HTML tags and special characters to prevent mischief.
+ * @param {string} str - A string that we don't want to contain any HTML.
+ * @return {string} - A string that no longer contains any HTML.
+ */
+function escapeHTML (str) {
+  return  [ [/&/g, '&amp;']
+          , [/>/g, '&gt;']
+          , [/</g, '&lt;']
+          , [/"/g, '&quot;']
+          , [/'/g, '&#39;']
+          , [/\`/g, '&#96;']
+          ].reduce((p, c) => p.replace(...c), str)
+}
+
 /**
  * Renders HTML summary of the request for the client.
  * @param {Object} requestInfo       - Logging info for the the request.
@@ -6,16 +23,7 @@
  * @param {string} requestInfo.url   - The path requested by the client.
  * @param {object} requestInfo.res   - The server response object that will recieve the HTML.
  */
-module.exports = ({ host, port, url, res }) => {
-  const escapeHTML = (str) =>
-          [ [/&/g, '&amp;']
-          , [/>/g, '&gt;']
-          , [/</g, '&lt;']
-          , [/"/g, '&quot;']
-          , [/'/g, '&#39;']
-          , [/\`/g, '&#96;']
-          ].reduce((p, c) => p.replace(...c), str)
-
+function asHTML ({ host, port, url, res }) {
   const HTMLTemplateString = `<!DOCTYPE html>
 <html lang="en">
   <head>
