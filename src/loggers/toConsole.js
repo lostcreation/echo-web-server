@@ -4,6 +4,6 @@
  * @param {string} requestInfo.client - The IP address for the client.
  * @param {string} requestInfo.url    - The path requested by the client.
  */
-module.exports = ({ client, url }) => {
-  console.log(`Client [${client}] Requested: ${url}`)
+module.exports = ({ host, port, client, url }) => {
+  console.log(`[${host}:${port}] Client [${client}] Requested: ${url}`)
 }

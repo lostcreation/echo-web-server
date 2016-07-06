@@ -11,13 +11,11 @@ const stop = server.start(port, host, ({host, port}) => {
 })
 
 server.addLogger(({host, port, url}) => {
-  console.log('Added logger ran!')
   if (url == '/stop/stop/stop') {
     stop(() => {
         console.log(`
-echo | The Server at running at
-echo | http://${host}:${port}/
-echo | is shutting down!
+[${host}:${port}] Client sent shutdown request "/stop/stop/stop"
+[${host}:${port}] The Server will shot down!
 `)
     })
   }
