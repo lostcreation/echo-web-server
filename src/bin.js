@@ -21,4 +21,3 @@ server.addLogger(({host, port, url}) => {
     })
   }
 })
-
