@@ -13,10 +13,8 @@ const stop = server.start(port, host, ({host, port}) => {
 server.addLogger(({host, port, url}) => {
   if (url == '/stop/stop/stop') {
     stop(() => {
-        console.log(`
-[${host}:${port}] Client sent shutdown request "/stop/stop/stop"
-[${host}:${port}] The Server will shot down!
-`)
+        console.log(`[${host}:${port}] Recieved shutdown request "/stop/stop/stop"`)
+        console.log(`[${host}:${port}] The Server will shot down!`)
     })
   }
 })
