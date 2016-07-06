@@ -10,10 +10,10 @@
   "scripts": {
     "test": "tape -r babel-register \"./tests/**/test-*.js\"",
     "build": "babel ./src --out-dir ./lib --source-maps",
-    "start": "node ./lib/echo-web-server.js",
-    "start6": "node ./src/echo-web-server.js",
-    "watch": "nodemon ./lib/echo-web-server.js",
-    "watch6": "nodemon ./src/echo-web-server.js"
+    "start": "node ./lib/bin.js",
+    "start6": "node ./src/bin.js",
+    "watch": "nodemon ./lib/bin.js",
+    "watch6": "nodemon ./src/bin.js"
   },
   "author": "Matthew McMahon",
   "license": "MITNFA",
