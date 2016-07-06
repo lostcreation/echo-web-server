@@ -1,19 +1,6 @@
 module.exports = asHTML
 
-/**
- * Properly escapes HTML tags and special characters to prevent mischief.
- * @param {string} str - A string that we don't want to contain any HTML.
- * @return {string} - A string that no longer contains any HTML.
- */
-function escapeHTML (str) {
-  return  [ [/&/g, '&amp;']
-          , [/>/g, '&gt;']
-          , [/</g, '&lt;']
-          , [/"/g, '&quot;']
-          , [/'/g, '&#39;']
-          , [/\`/g, '&#96;']
-          ].reduce((p, c) => p.replace(...c), str)
-}
+const escapeHTML = require('../utils/escape-html.js')
 
 /**
  * Renders HTML summary of the request for the client.

@@ -1,7 +1,7 @@
 // Dependencies
 const http = require('http')
-const asHTML = require('./loggers/asHTML')
-const toConsole = require('./loggers/toConsole')
+const asHTML = require('./loggers/as-html')
+const toConsole = require('./loggers/to-console')
 
 // Default Loggers
 const loggers = []

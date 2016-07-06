@@ -3,7 +3,6 @@ console.log(`Current directory: ${process.cwd()}`);
 const test   = require('blue-tape')
 const asHTML = require('../../../src/loggers/asHTML.js')
 
-
 function stubRes() {
   return  { headers : {}
           , body : ''
