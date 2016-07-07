@@ -1,48 +1,86 @@
+"use strict"
+
 console.log(`Current directory: ${process.cwd()}`);
 
 const test   = require('blue-tape')
 const asHTML = require('../../../src/loggers/as-html.js')
 
-function stubRes() {
-  return  { headers : {}
-          , body : ''
-          , setHeader (header, value) {
-              this.headers[header] = value
-            }
-          , write (str) {
-              this.body = this.body + str
-            }
-          }
+runTest( 'Testing safe request URI.'
+       , "/safe-test"
+       , "/safe-test"
+       , `Should contain the URL inside a response tag.`
+       )
+
+runTest( 'Testing unsafe request URI.'
+       , `/<script>alert("Leet Hax!")</script>`
+       , `/&lt;script&gt;alert(&quot;Leet Hax!&quot;)&lt;/script&gt;`
+       , `Should escape HTML in the url.`
+       )
+
+function runTest(title, inputPath, outputPath, message) {
+  const response =  { headers : {}
+                    , body : ''
+                    , setHeader (header, value) {
+                        this.headers[header] = value
+                      }
+                    , write (str) {
+                        this.body = this.body + str
+                      }
+                    }
+  const request  =  { host : "mock-host"
+                    , port : "80"
+                    , url  : inputPath
+                    , res  : response
+                    }
+
+  // Build the HTML page response from our request.
+  asHTML(request)
+
+  // Test the response for required outputs.
+  test(title, (t) => {
+    const body               = response.body
+    const openingTag         = `<pre id="received">`
+    const openingTagLocation = body.indexOf(openingTag)
+    const closingTag         = `</pre>`
+    const closingTagLocation = openingTagLocation === -1 ? -1 : body.indexOf(closingTag, openingTagLocation)
+    const start              = openingTagLocation + openingTag.length
+    const end                = closingTagLocation
+
+    t.equal( response.headers['Content-Type']
+           , 'text/html'
+           , `response "Content-Type" header should be "text/html".`
+           )
+
+    t.test(`... testing response.body`, (t) => {
+      t.equal( (body === undefined)
+            , false
+            , `response.body should not be undefined.`
+            )
+
+      t.equal( (body === '')
+            , false
+            , `response.body should not be an empty string.`
+            )
+
+      t.equal( (openingTagLocation === -1)
+            , false
+            , `response.body should have the opening tag ${openingTag}.`
+            )
+      t.end()
+    })
+
+    t.test(`... testing URI Parsing`, (t) => {
+      t.equal( (closingTagLocation === -1)
+            , false
+            , `The closing tag "${closingTag}" should follow the opening tag.`
+            )
+
+      t.equal( body.substring(start, end).trim()
+            , `http://${request.host}:${request.port}${outputPath}`
+            , `The output path should be in the recieved field.`
+            )
+      t.end()
+    })
+    t.end()
+  })
 }
-
-test('Wellformed Request', (t) => {
-  const res = stubRes()
-  const req = { host: "test"
-              , port: "80"
-              , url: "/first-test"
-              , res
-              }
-  asHTML(req)
-  t.equal(res.headers['Content-Type']
-    , 'text/html'
-    , 'Should have Content-Type "text/html".'
-    )
-  t.notEqual(res.body.indexOf(`http://${req.host}:${req.port}${req.url}`)
-    , -1
-    , `Should contain the requested URL in res.body.`)
-  t.end()
-})
-
-test('Attempt to inject HTML', (t) => {
-  const res = stubRes()
-  const url = `/<script>alert("Leet Hax!")</script>`
-  asHTML({ host: "test"
-         , port: "80"
-         , url: url
-         , res
-         })
-  t.notEqual(res.body.indexOf("&lt;script&gt;alert(&quot;Leet Hax!&quot;)&lt;/script&gt;")
-    , -1
-    , 'Should escape HTML in the url.')
-  t.end()
-})

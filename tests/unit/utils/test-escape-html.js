@@ -10,9 +10,9 @@ const charTests = // [[ toTest, expected ]]
   , ['`', '&grave;']
   ]
 
-charTests.forEach(([toTest, expected]) => {
-  test((t) => {
+test("Testing single-character replacing.", (t) => {
+  charTests.forEach(([toTest, expected]) => {
     t.equal(escape(toTest), expected, `'${toTest}' should be replaced with '${expected}'`)
-    t.end()
   })
+  t.end()
 })
