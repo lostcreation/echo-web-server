@@ -12,9 +12,7 @@
     "server"
   ],
   "main": "lib/echo-web-server.js",
-  "bin": {
-    "echo-web-server": "./bin/echo-web-server"
-  },
+  "bin": "./lib/bin.js",
   "engines": {
     "node": "*"
   },
