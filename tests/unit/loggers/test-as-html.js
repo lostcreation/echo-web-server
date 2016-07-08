@@ -55,13 +55,12 @@ function runTest (title, inputPath, outputPath, message) {
         'response.body should not be an empty string.')
       t.equal((openingTagLocation === -1), false,
         `response.body should have the opening tag ${openingTag}.`)
+      t.equal((closingTagLocation === -1), false,
+        `The closing tag "${closingTag}" should follow the opening tag.`)
       t.end()
     })
 
     t.test('... testing URI Parsing', (t) => {
-      t.equal((closingTagLocation === -1), false,
-        `The closing tag "${closingTag}" should follow the opening tag.`)
-
       t.equal(body.substring(start, end).trim(),
         `http://${request.host}:${request.port}${outputPath}`,
         message)
