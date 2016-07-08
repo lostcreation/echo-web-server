@@ -1,5 +1,6 @@
 # IDE specific
 jsconfig.json
+.vscode
 
 # Logs
 logs

@@ -1,6 +1,7 @@
 {
   "name": "echo-web-server",
   "version": "1.0.0",
+  "private": true,
   "repository": {
     "type" : "git",
     "url" : "https://github.com/lostcreation/echo-web-server.git"
@@ -10,7 +11,7 @@
     "echo",
     "server"
   ],
-  "main": "./lib/echo-web-server.js",
+  "main": "lib/echo-web-server.js",
   "bin": {
     "echo-web-server": "./bin/echo-web-server"
   },
@@ -18,21 +19,35 @@
     "node": "*"
   },
   "scripts": {
-    "test": "babel-node ./tests/index.js",
-    "build": "babel ./src -d ./lib",
-    "start": "node ./lib/echo-web-server.js",
-    "start6": "node ./src/echo-web-server.js",
-    "watch": "nodemon ./lib/echo-web-server.js",
-    "watch6": "nodemon ./src/echo-web-server.js"
+    "s": "npm-run-all --sequential",
+    "p": "npm-run-all --parallel",
+    "lint": "standard",
+    "test": "tape -r babel-register \"./tests/**/test-*.js\"",
+    "build": "babel ./src --out-dir ./lib --source-maps",
+    "clean": "del-cli ./lib/**",
+    "start": "node ./lib/bin.js",
+    "start6": "node ./src/bin.js",
+    "watch": "nodemon ./lib/bin.js",
+    "watch6": "nodemon ./src/bin.js",
+    "ps": "powershell"
   },
   "author": "Matthew McMahon",
   "license": "MITNFA",
   "devDependencies": {
     "babel-cli": "^6.10.1",
+    "babel-eslint": "^6.1.0",
     "babel-preset-es2015": "^6.9.0",
-    "colors": "^1.1.2",
-    "commander": "^2.9.0",
-    "nodemon": "^1.9.2"
+    "babel-register": "^6.9.0",
+    "blue-tape": "^0.2.0",
+    "del-cli": "^0.2.0",
+    "nodemon": "^1.9.2",
+    "npm-run-all": "^2.3.0",
+    "standard": "^7.1.2"
   },
-  "private": true
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "/lib"
+    ]
+  }
 }
