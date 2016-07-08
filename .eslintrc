@@ -1,0 +1,13 @@
+{ "rules"   : { "indent"          : [ 1, 2 ]
+              , "quotes"          : [ 2, "single" ]
+              , "linebreak-style" : [ 2, "unix" ]
+              , "semi"            : [ 1, "never" ]
+              , "no-console"      : [ 0 ]
+              , "comma-style"     : [ 2, "first" ]
+              }
+, "env"     : { "es6": true
+              , "node": true
+              , "browser": true
+              }
+, "extends" : "eslint:recommended"
+}

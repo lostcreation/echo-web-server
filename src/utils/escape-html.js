@@ -1,11 +1,11 @@
 const charMap = // [[regexp of character to match, entity to replace with]]
-  [ [/&/g  , '&amp;']
-  , [/>/g  , '&gt;']
-  , [/</g  , '&lt;']
-  , [/"/g  , '&quot;']
-  , [/'/g  , '&apos;']
-  , [/\`/g , '&grave;']
-  ]
+[ [/&/g, '&amp;'],
+  [/>/g, '&gt;'],
+  [/</g, '&lt;'],
+  [/"/g, '&quot;'],
+  [/'/g, '&apos;'],
+  [/`/g, '&grave;']
+]
 
 /**
  * Properly escapes HTML tags and special characters to prevent mischief.

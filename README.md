@@ -1,6 +1,8 @@
 Echo Web Server
 ===============
 
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+
 **echo-web-server** is a minimalistic [Node.js&reg;][1] web server that logs client requests to the terminal and echos them back to the client as a basic HTML page.
 Deployment can be as simple as copying a single script file, `lib/echo-web-server.js`, to the desired location and executing it with whatever version of *Node.js* happens to be installed.
 

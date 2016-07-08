@@ -9,14 +9,11 @@ addLogger(toConsole)
 addLogger(asHTML)
 
 // Exports
-module.exports = { start
-                 , toConsole
-                 , asHTML
-                 , addLogger
-                 }
-
-
-// Server =====================================================================
+module.exports = { start,
+  toConsole,
+  asHTML,
+  addLogger
+}
 
 /**
  * Starts a server at the port and host indicated.
@@ -30,10 +27,10 @@ function start (port = '8080', host = '0.0.0.0', callback) {
 
   // Create the server we're starting.
   const server = http.createServer((req, res) => {
-    const requestInfo = Object.freeze({ res, host, port
-                                      , client : req.connection.remoteAddress
-                                      , url    : decodeURI(req.url)
-                                      })
+    const requestInfo = Object.freeze({ res, host, port,
+      client: req.connection.remoteAddress,
+      url: decodeURI(req.url)
+    })
     res.statusCode = 404
     res.setHeader('Cache-Control', 'no-cache')
     res.setHeader('Connection', 'close')
