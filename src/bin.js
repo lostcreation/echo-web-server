@@ -1,3 +1,7 @@
+#! /usr/bin/env node
+
+console.log(process.argv)
+
 // ENV defaults
 const host = process.env['ECHO_WEB_SERVER_HOST']
 const port = process.env['ECHO_WEB_SERVER_PORT']
