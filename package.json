@@ -8,13 +8,15 @@
   ],
   "main": "lib/echo-web-server.js",
   "scripts": {
+    "s": "npm-run-all --sequential",
+    "p": "npm-run-all --parallel",
+    "lint": "standard",
     "test": "tape -r babel-register \"./tests/**/test-*.js\"",
     "build": "babel ./src --out-dir ./lib --source-maps",
     "start": "node ./lib/bin.js",
     "start6": "node ./src/bin.js",
     "watch": "nodemon ./lib/bin.js",
-    "watch6": "nodemon ./src/bin.js",
-    "lint": "standard"
+    "watch6": "nodemon ./src/bin.js"
   },
   "author": "Matthew McMahon",
   "license": "MITNFA",
@@ -25,10 +27,13 @@
     "babel-register": "^6.9.0",
     "blue-tape": "^0.2.0",
     "nodemon": "^1.9.2",
+    "npm-run-all": "^2.3.0",
     "standard": "^7.1.2"
   },
   "standard": {
     "parser": "babel-eslint",
-    "ignore": ["/lib/**"]
+    "ignore": [
+      "/lib/**"
+    ]
   }
 }
