@@ -3,17 +3,18 @@ const http = require('http')
 const asHTML = require('./loggers/as-html')
 const toConsole = require('./loggers/to-console')
 
-// Default Loggers
-const loggers = []
-addLogger(toConsole)
-addLogger(asHTML)
-
 // Exports
-module.exports = { start,
+module.exports = {
+  start,
   toConsole,
   asHTML,
   addLogger
 }
+
+// Default Loggers
+const loggers = []
+addLogger(toConsole)
+addLogger(asHTML)
 
 /**
  * Starts a server at the port and host indicated.

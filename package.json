@@ -12,7 +12,9 @@
     "server"
   ],
   "main": "lib/echo-web-server.js",
-  "bin": "./lib/bin.js",
+  "bin" : {
+    "ews": "./src/bin.js"
+  },
   "engines": {
     "node": "*"
   },
@@ -25,9 +27,9 @@
     "clean": "del-cli ./lib/**",
     "start": "node ./lib/bin.js",
     "start6": "node ./src/bin.js",
+    "verify": "npm-run-all --sequential clean lint test build",
     "watch": "nodemon ./lib/bin.js",
-    "watch6": "nodemon ./src/bin.js",
-    "ps": "powershell"
+    "watch6": "nodemon ./src/bin.js"
   },
   "author": "Matthew McMahon",
   "license": "MITNFA",
