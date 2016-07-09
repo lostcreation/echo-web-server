@@ -1,5 +1,5 @@
 {
-  "name": "echo-web-server",
+  "name": "@mwm/echo-web-server",
   "version": "1.0.0",
   "private": true,
   "repository": {
