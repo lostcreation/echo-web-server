@@ -47,14 +47,14 @@ function runTest (title, inputPath, outputPath, message) {
       'response "Content-Type" header should be "text/html".')
 
     t.test('... testing response.body', (t) => {
-      t.equal((body === undefined), false,
-        'response.body should not be undefined.')
-      t.equal((body === ''), false,
-        'response.body should not be an empty string.')
-      t.equal((openingTagLocation === -1), false,
-        `response.body should have the opening tag ${openingTag}.`)
+      t.equal(typeof body, 'string',
+        'response.body should be a string.')
+      t.notEqual(body, '',
+        'response.body should NOT be an empty string.')
+      t.notEqual(openingTagLocation, -1,
+        `${openingTag} location should be a nonnegative index.`)
       t.equal((closingTagLocation === -1), false,
-        `The closing tag "${closingTag}" should follow the opening tag.`)
+        `${closingTag} should follow the opening tag.`)
       t.end()
     })
 

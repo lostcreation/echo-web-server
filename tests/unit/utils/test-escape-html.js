@@ -12,7 +12,7 @@ const charTests = // [[ toTest, expected ]]
 test('Testing single-character replacing.', (t) => {
   charTests.forEach(([toTest, expected]) => {
     t.equal(escape(toTest), expected,
-      `'${toTest}' should be replaced with '${expected}'`)
+      `"${toTest}" should be replaced with "${expected}"`)
   })
   t.end()
 })
