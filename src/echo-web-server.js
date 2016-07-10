@@ -5,26 +5,23 @@ const toConsole = require('./loggers/to-console')
 
 // Exports
 module.exports = {
-  start,
-  toConsole,
-  asHTML,
-  addLogger
+  start
 }
-
-// Default Loggers
-const loggers = []
-addLogger(toConsole)
-addLogger(asHTML)
 
 /**
  * Starts a server at the port and host indicated.
- * @param {string} [port='8080'] - Open port or 'auto' to assign a random free port.
- * @param {string} [host='0.0.0.0'] - IP or host name
- * @returns {function} - Stop this server then execute an optional callback function.
+ * @param {object}   options
+ * @param {string}   [options.port='8080']    - Open port or 'auto' to assign a random free port.
+ * @param {string}   [options.host='0.0.0.0'] - IP or host name
+ * @param {function} [options.ready]          - Callback executed when server is ready to accept incoming connections.
+ * @returns {object} [server]                 - Stop this server then execute an optional callback function.
  */
-function start (port = '8080', host = '0.0.0.0', callback) {
+function start ({port = '8080', host = '0.0.0.0', ready} = {}) {
   // Handle special case for an auto-port.
   if (port === 'auto') port = 0
+
+  // Default Loggers
+  const loggers = [ toConsole, asHTML ]
 
   // Create the server we're starting.
   const server = http.createServer((req, res) => {
@@ -42,19 +39,16 @@ function start (port = '8080', host = '0.0.0.0', callback) {
   server.listen(port, host, () => {
     host = server.address().address
     port = server.address().port
-    callback && callback({ host, port, running: true })
+    ready && ready({ host, port, running: true })
   })
 
-  return (callback) => {
-    process.disconnect && process.disconnect()
-    server.listening && server.close(callback)
+  return {
+    stop (callback) {
+      process.disconnect && process.disconnect()
+      server.listening && server.close(callback)
+    },
+    addLogger (logger) {
+      loggers.push(logger)
+    }
   }
-}
-
-/**
- * Adds a logging function that will automatically be notified of new
- * requests.
- */
-function addLogger (logger) {
-  loggers.push(logger)
 }
