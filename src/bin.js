@@ -13,9 +13,9 @@ const server = require('./echo-web-server.js')
 
 // Start the server, storing the function returned by the `start` method so we
 // can gracefully shut downt he server later.
-const stop = server.start(port, host, ({host, port}) => {
+const stop = server.start({port, host, ready: ({host, port}) => {
   console.log(`Server running at http://${host}:${port}/`)
-})
+}})
 
 // We'll use the server's addLogger method to give us a way to gracefully
 // shutdown the server. This would be a bad idea in a real application, but
