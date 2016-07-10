@@ -1,3 +1,5 @@
+'use strict'
+
 const escape = require('../../../src/utils/escape-html.js')
 const test = require('blue-tape')
 
