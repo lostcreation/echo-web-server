@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * Logs request information to the console.
  * @param {Object} requestInfo        - Logging info for the the request.

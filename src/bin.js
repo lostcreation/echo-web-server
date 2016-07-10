@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict'
+
 const argv = process.argv.splice(2)
 
 // ENV defaults

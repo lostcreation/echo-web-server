@@ -1,3 +1,5 @@
+'use strict'
+
 // Dependencies
 const http = require('http')
 const asHTML = require('./loggers/as-html')

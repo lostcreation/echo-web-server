@@ -1,3 +1,5 @@
+'use strict'
+
 module.exports = asHTML
 
 const escapeHTML = require('../utils/escape-html.js')
@@ -11,7 +13,7 @@ const escapeHTML = require('../utils/escape-html.js')
  * @param {object} requestInfo.res   - The server response object that will recieve the HTML.
  */
 function asHTML ({ host, port, url, res }) {
-  const HTMLTemplateString = `<!DOCTYPE html>
+  const htmlTemplateString = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -38,5 +40,5 @@ function asHTML ({ host, port, url, res }) {
 
   // Send HTML to client
   res.setHeader('Content-Type', 'text/html')
-  res.write(HTMLTemplateString)
+  res.write(htmlTemplateString)
 }
