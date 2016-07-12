@@ -22,7 +22,7 @@
     "s": "npm-run-all --sequential",
     "p": "npm-run-all --parallel",
     "lint": "standard",
-    "tape": "tape -r babel-register \"./tests/**/test-*.js\" | faucet",
+    "tape": "tape -r babel-register \"./tests/**/test-*.js\"",
     "test": "npm-run-all --sequential clean lint tape build",
     "build": "babel ./src --out-dir ./lib --source-maps",
     "clean": "rm -f -r ./lib/**",
