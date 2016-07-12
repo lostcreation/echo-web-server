@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/lostcreation/echo-web-server.git"
+    "type": "git",
+    "url": "https://github.com/lostcreation/echo-web-server.git"
   },
   "description": "Minimilistic web server logs any request it recieves to the console and echos that request back to the user in a web page. No dependencies for deployment; minimal dependencies for development.",
   "keywords": [
@@ -12,7 +12,7 @@
     "server"
   ],
   "main": "lib/echo-web-server.js",
-  "bin" : {
+  "bin": {
     "ews": "./src/bin.js"
   },
   "engines": {
@@ -22,11 +22,10 @@
     "s": "npm-run-all --sequential",
     "p": "npm-run-all --parallel",
     "lint": "standard",
-    "pretest": "npm-run-all --sequential clean lint",
-    "test": "tape -r babel-register \"./tests/**/test-*.js\"",
-    "posttest": "npm run build",
+    "tape": "tape -r babel-register \"./tests/**/test-*.js\" | faucet",
+    "test": "npm-run-all --sequential clean lint tape build",
     "build": "babel ./src --out-dir ./lib --source-maps",
-    "clean": "del-cli ./lib/**",
+    "clean": "rm -f -r ./lib/**",
     "start": "node ./lib/bin.js",
     "start6": "node ./src/bin.js",
     "watch": "nodemon ./lib/bin.js",
@@ -40,7 +39,7 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.9.0",
     "blue-tape": "^0.2.0",
-    "del-cli": "^0.2.0",
+    "faucet": "0.0.1",
     "nodemon": "^1.9.2",
     "npm-run-all": "^2.3.0",
     "standard": "^7.1.2"
