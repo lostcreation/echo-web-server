@@ -2,19 +2,28 @@
 
 // Dependencies
 const http = require('http')
-const asHTML = require('./loggers/as-html')
-const toConsole = require('./loggers/to-console')
-
-// Default Loggers
-const loggers = [].push(toConsole, asHTML)
-const addLogger = loggers.push.bind(loggers)
 
 // Server Config
 function start (port = '8080', host = '0.0.0.0', callback) {
   // Handle special case for an auto-port.
   if (port === 'auto') port = 0
 
-  // Create the server we're starting.
+  // Unless it has loggers, our server won't do anything.
+  const loggers = []
+
+  /**
+   * Adds a logging function. Without at least one logging function, the server
+   * will not do anything. When we recieve a request, the server will pass a
+   * `requestInfo` object to every registered logger.
+   */
+  const addLogger = loggers.push.bind(loggers)
+
+  /**
+   * Starts a server at the port and host indicated.
+   * @param {string} [port='8080'] - Open port or 'auto' to assign a random free port.
+   * @param {string} [host='0.0.0.0'] - IP or host name
+   * @returns {function} - Stop this server then execute an optional callback function.
+   */
   const server = http.createServer((req, res) => {
     const requestInfo = Object.freeze({
       res,
@@ -36,26 +45,17 @@ function start (port = '8080', host = '0.0.0.0', callback) {
     callback && callback({ host, port, running: true })
   })
 
-  return (callback) => {
-    process.disconnect && process.disconnect()
-    server.listening && server.close(callback)
+  return {
+    addLogger,
+    stop (callback) {
+      process.disconnect && process.disconnect()
+      server.listening && server.close(callback)
+    }
   }
 }
 
 // Exports
 module.exports = {
-  /**
-   * Starts a server at the port and host indicated.
-   * @param {string} [port='8080'] - Open port or 'auto' to assign a random free port.
-   * @param {string} [host='0.0.0.0'] - IP or host name
-   * @returns {function} - Stop this server then execute an optional callback function.
-   */
-  start,
-
-  /**
-   * Adds a logging function that will automatically be notified of new
-   * requests.
-   */
-  addLogger
+  start
 }
 
