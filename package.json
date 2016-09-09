@@ -25,7 +25,7 @@
     "pretest": "npm-run-all --sequential clean lint",
     "test": "tape -r babel-register \"./tests/**/test-*.js\"",
     "posttest": "npm run build",
-    "build": "babel ./src --out-dir ./lib --source-maps",
+    "build": "babel ./src --out-dir ./lib",
     "clean": "del-cli ./lib/**",
     "start": "node ./lib/bin.js",
     "start6": "node ./src/bin.js",
@@ -48,7 +48,7 @@
   "standard": {
     "parser": "babel-eslint",
     "ignore": [
-      "/lib"
+      "lib/**/*"
     ]
   }
 }
