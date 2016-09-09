@@ -30,7 +30,10 @@ function start (port = '8080', host = '0.0.0.0', callback) {
 
   // Create the server we're starting.
   const server = http.createServer((req, res) => {
-    const requestInfo = Object.freeze({ res, host, port,
+    const requestInfo = Object.freeze({
+      res,
+      host,
+      port,
       client: req.connection.remoteAddress,
       url: decodeURI(req.url)
     })
