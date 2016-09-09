@@ -5,25 +5,11 @@ const http = require('http')
 const asHTML = require('./loggers/as-html')
 const toConsole = require('./loggers/to-console')
 
-// Exports
-module.exports = {
-  start,
-  toConsole,
-  asHTML,
-  addLogger
-}
-
 // Default Loggers
-const loggers = []
-addLogger(toConsole)
-addLogger(asHTML)
+const loggers = [].push(toConsole, asHTML)
+const addLogger = loggers.push.bind(loggers)
 
-/**
- * Starts a server at the port and host indicated.
- * @param {string} [port='8080'] - Open port or 'auto' to assign a random free port.
- * @param {string} [host='0.0.0.0'] - IP or host name
- * @returns {function} - Stop this server then execute an optional callback function.
- */
+// Server Config
 function start (port = '8080', host = '0.0.0.0', callback) {
   // Handle special case for an auto-port.
   if (port === 'auto') port = 0
@@ -56,10 +42,20 @@ function start (port = '8080', host = '0.0.0.0', callback) {
   }
 }
 
-/**
- * Adds a logging function that will automatically be notified of new
- * requests.
- */
-function addLogger (logger) {
-  loggers.push(logger)
+// Exports
+module.exports = {
+  /**
+   * Starts a server at the port and host indicated.
+   * @param {string} [port='8080'] - Open port or 'auto' to assign a random free port.
+   * @param {string} [host='0.0.0.0'] - IP or host name
+   * @returns {function} - Stop this server then execute an optional callback function.
+   */
+  start,
+
+  /**
+   * Adds a logging function that will automatically be notified of new
+   * requests.
+   */
+  addLogger
 }
+
