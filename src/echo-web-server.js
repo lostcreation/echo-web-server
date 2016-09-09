@@ -11,7 +11,7 @@ function start (port = '8080', host = '0.0.0.0', callback) {
   // Unless it has loggers, our server won't do anything.
   const loggers = []
 
-  const addLogger = loggers.push.bind.loggers
+  const addLogger = loggers.push.bind(loggers)
 
   const server = http.createServer((req, res) => {
     const requestInfo = Object.freeze({
