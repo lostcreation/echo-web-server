@@ -1,7 +1,7 @@
 const test = require('blue-tape')
 const toConsole = require('../../../src/loggers/to-console.js')
 
-test('to-console module should exist.', (t) => {
+test('Testing "toConsole" logger ... ', (t) => {
   t.equal(typeof toConsole, 'function', (t) => {
     'toConsole should be a function.'
   })
