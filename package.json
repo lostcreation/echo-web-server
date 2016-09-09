@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/lostcreation/echo-web-server.git"
+    "type": "git",
+    "url": "https://github.com/lostcreation/echo-web-server.git"
   },
   "description": "Minimilistic web server logs any request it recieves to the console and echos that request back to the user in a web page. No dependencies for deployment; minimal dependencies for development.",
   "keywords": [
@@ -12,7 +12,7 @@
     "server"
   ],
   "main": "lib/index.js",
-  "bin" : {
+  "bin": {
     "ews": "./src/bin.js"
   },
   "engines": {
@@ -23,7 +23,7 @@
     "p": "npm-run-all --parallel",
     "lint": "standard",
     "pretest": "npm-run-all --sequential clean lint",
-    "test": "tape -r babel-register \"./tests/**/test-*.js\"",
+    "test": "tape -r babel-register \"./tests/**/test-*.js\" | faucet",
     "posttest": "npm run build",
     "build": "babel ./src --out-dir ./lib",
     "clean": "del-cli ./lib/**",
@@ -41,6 +41,7 @@
     "babel-register": "^6.9.0",
     "blue-tape": "^1.0.0",
     "del-cli": "^0.2.0",
+    "faucet": "0.0.1",
     "nodemon": "^1.9.2",
     "npm-run-all": "^3.1.0",
     "standard": "^8.0.0"
