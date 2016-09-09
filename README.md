@@ -12,8 +12,8 @@ Run *EWS* Globally
 ----------------
 *EWS* can be installed globally and run using the alias *EWS*. For example:
 ```
-npm install -g @mwm/echo-web-server
-*EWS*
+> npm install -g @mwm/echo-web-server
+> ews
 ```
 Will start up an echo web server, and start logging requests it receives to the terminal.
 

@@ -20,9 +20,11 @@ function start (port = '8080', host = '0.0.0.0', callback) {
 
   /**
    * Starts a server at the port and host indicated.
-   * @param {string} [port='8080'] - Open port or 'auto' to assign a random free port.
+   * @param {string} [port='8080'] - Open port or 'auto' to assign a random
+   *    free port.
    * @param {string} [host='0.0.0.0'] - IP or host name
-   * @returns {function} - Stop this server then execute an optional callback function.
+   * @returns {function} - Stop this server then execute an optional callback
+   *    function.
    */
   const server = http.createServer((req, res) => {
     const requestInfo = Object.freeze({
