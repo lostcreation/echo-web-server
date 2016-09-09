@@ -14,9 +14,7 @@ const port = getValueForFlag('-p', argv) || process.env['ECHO_WEB_SERVER_PORT']
 
 // Our server
 
-// Start the server. It returns two functions, `stop` that lets us gracefully
-// shutdown the server, and `addLogger`, which lets us add custom loggers to
-// the server.
+// Start the server.
 const { stop, addLogger } = server.start(port, host, ({host, port}) => {
   console.log(`Server running at http://${host}:${port}/`)
 })
@@ -24,9 +22,9 @@ const { stop, addLogger } = server.start(port, host, ({host, port}) => {
 // Add our default loggers.
 addLogger(logAsHTML, logToConsole)
 
-// Create a new logger that gives us a way to gracefully shutdown the server.
-// This would be a bad idea in a real application, but it's safe enough for
-// testing.
+// Create a new logger that gives us a way to gracefully shutdown the server
+// when given a "secret" url. This would be a bad idea in a real application,
+// but it's safe enough for testing.
 addLogger(({host, port, url}) => {
   if (url === '/stop/stop/stop') {
     stop(() => {
