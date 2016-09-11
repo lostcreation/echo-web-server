@@ -1,3 +1,5 @@
+'use strict'
+
 const map = // [[regexp of character(s) to match, entity to replace with]]
 [ [/&/g, '&amp;'],
   [/>/g, '&gt;'],

@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+'use strict'
+// Dependencies
+const server = require('./echo-web-server.js')
+const logAsHTML = require('./loggers/as-html')
+const logToConsole = require('./loggers/to-console')
+
 const argv = process.argv.splice(2)
 
 // ENV defaults
@@ -7,18 +13,19 @@ const host = getValueForFlag('-h', argv) || process.env['ECHO_WEB_SERVER_HOST']
 const port = getValueForFlag('-p', argv) || process.env['ECHO_WEB_SERVER_PORT']
 
 // Our server
-const server = require('./echo-web-server.js')
 
-// Start the server, storing the function returned by the `start` method so we
-// can gracefully shut downt he server later.
-const stop = server.start(port, host, ({host, port}) => {
+// Start the server.
+const { stop, addLogger } = server.start(port, host, ({host, port}) => {
   console.log(`Server running at http://${host}:${port}/`)
 })
 
-// We'll use the server's addLogger method to give us a way to gracefully
-// shutdown the server. This would be a bad idea in a real application, but
-// it's safe enough for testing.
-server.addLogger(({host, port, url}) => {
+// Add our default loggers.
+addLogger(logAsHTML, logToConsole)
+
+// Create a new logger that gives us a way to gracefully shutdown the server
+// when given a "secret" url. This would be a bad idea in a real application,
+// but it's safe enough for testing.
+addLogger(({host, port, url}) => {
   if (url === '/stop/stop/stop') {
     stop(() => {
       console.log(`[${host}:${port}] Recieved shutdown request "/stop/stop/stop"`)
