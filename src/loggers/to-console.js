@@ -1,11 +1,6 @@
 'use strict'
 
-/**
- * Logs request information to the console.
- * @param {Object} requestInfo        - Logging info for the the request.
- * @param {string} requestInfo.client - The IP address for the client.
- * @param {string} requestInfo.url    - The path requested by the client.
- */
-module.exports = function ({host, port, client, url}) {
-  console.log(`[${host}:${port}] Client [${client}] Requested: ${url}`)
+module.exports = function ({req, host, port, client, url}) {
+  const clientRequest = 'http://' + (req.headers.host + url).replace(/"/g, '&quot;"')
+  console.log(`[EWS] ${host}:${port}: Client ${client} requested ${clientRequest}`)
 }

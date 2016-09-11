@@ -4,7 +4,7 @@
 const http = require('http')
 
 // Server Config
-function start (port = '8080', host = '0.0.0.0', callback) {
+function start (host = '0.0.0.0', port = '8080', callback) {
   // Handle special case for an auto-port.
   if (port === 'auto') port = 0
 
@@ -15,6 +15,7 @@ function start (port = '8080', host = '0.0.0.0', callback) {
 
   const server = http.createServer((req, res) => {
     const requestInfo = Object.freeze({
+      req,
       res,
       host,
       port,

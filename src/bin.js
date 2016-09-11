@@ -9,17 +9,14 @@ const logToConsole = require('./loggers/to-console')
 const argv = process.argv.splice(2)
 
 // ENV defaults
-const host = getValueForFlag('-h', argv) || process.env['ECHO_WEB_SERVER_HOST']
-const port = getValueForFlag('-p', argv) || process.env['ECHO_WEB_SERVER_PORT']
-
-// Our server
+const host = getValueForFlag('-h', argv) || process.env['ECHO_WEB_SERVER_HOST'] || undefined
+const port = getValueForFlag('-p', argv) || process.env['ECHO_WEB_SERVER_PORT'] || undefined
 
 // Start the server.
-const { stop, addLogger } = server.start(port, host, ({host, port}) => {
-  console.log(`Server running at http://${host}:${port}/`)
+const { stop, addLogger } = server.start(host, port, ({host, port}) => {
+  console.log(`[EWS] New server running at http://${host}:${port}/`)
 })
 
-// Add our default loggers.
 addLogger(logAsHTML, logToConsole)
 
 // Create a new logger that gives us a way to gracefully shutdown the server
@@ -27,10 +24,8 @@ addLogger(logAsHTML, logToConsole)
 // but it's safe enough for testing.
 addLogger(({host, port, url}) => {
   if (url === '/stop/stop/stop') {
-    stop(() => {
-      console.log(`[${host}:${port}] Recieved shutdown request "/stop/stop/stop"`)
-      console.log(`[${host}:${port}] The Server will shut down!`)
-    })
+    console.log(`[EWS] ${host}:${port}: Recieved shutdown request "/stop/stop/stop"`)
+    stop(console.log.bind(console.log, `[EWS] ${host}:${port}: Is shutting down!`))
   }
 })
 
