@@ -1,26 +1,12 @@
 'use strict'
 
 const test = require('blue-tape')
-const module = require(require('./test-module').id)
+const echo = require('./test-module')
 
 test('test-server.js tests running', (t) => {
-  t.test('Test module methods...', (t) => {
-    t.ok(module,
-      'ews should exist')
-    ;['start'].forEach((method) => {
-      t.equal(typeof module[method], 'function',
-        `It should have the method "${method}".`)
-    })
-
-    ;['addLogger', 'toConsole', 'asHTML'].forEach((method) => {
-      t.equal(module[method], undefined,
-        `It should NOT have the method "${method}".`)
-    })
-    t.end()
-  })
 
   t.test('Testing server start method.', (t) => {
-    const server = module.start({ ready (reqInfo) {
+    const server = echo.start({ ready (reqInfo) {
       t.pass('Server should start.')
       t.equal(typeof server.stop, 'function',
         'Stop method should exist.')
@@ -31,6 +17,21 @@ test('test-server.js tests running', (t) => {
         t.end()
       })
     }})
+  })
+
+  t.test('Running multiple servers.', (t) => {
+    function startServer (port = 0) {
+      const s = {
+        server: echo.start({ port, ready () { s.ready = true } }),
+        ready: false,
+        responded: 0
+      }
+      s.server.addLogger(() => { s.responded++ })
+      return s
+    }
+    const s1 = startServer('3000')
+    const s2 = startServer('4000')
+
   })
   t.end()
 })

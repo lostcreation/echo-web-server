@@ -16,7 +16,7 @@ module.exports = {
  * @param {string}   [options.port='8080']    - Open port or 'auto' to assign a random free port.
  * @param {string}   [options.host='0.0.0.0'] - IP or host name
  * @param {function} [options.ready]          - Callback executed when server is ready to accept incoming connections.
- * @returns {object} [server]                 - Stop this server then execute an optional callback function.
+ * @returns {object}                          - Stop this server then execute an optional callback function.
  */
 function start ({port = '8080', host = '0.0.0.0', ready} = {}) {
   // Handle special case for an auto-port.
