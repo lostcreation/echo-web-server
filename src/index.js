@@ -1,4 +1,4 @@
-const server = require('./echo-web-server')
+const server = require('./server')
 const loggers = {
   asHTML: require('./loggers/asHTML'),
   toConsole: require('./loggers/toConsole')

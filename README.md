@@ -31,7 +31,7 @@ I received the request:
 ```
 
 To gracefully stop *EWS* you can send the "secret" request `/stop/stop/stop`.
-(Note that, when you `require('echo-web-server')` in your own projects this  shutdown command isn't included by default.)
+(Note that, when you `require('echo-web-server')` in your own projects this shutdown command isn't included by default.)
 
 Customize *EWS*
 -------------

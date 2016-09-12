@@ -2,7 +2,7 @@
 
 'use strict'
 // Dependencies
-const server = require('./echo-web-server.js')
+const server = require('./server.js')
 const logAsHTML = require('./loggers/as-html')
 const logToConsole = require('./loggers/to-console')
 
