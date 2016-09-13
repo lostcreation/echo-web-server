@@ -30,7 +30,8 @@
     "start": "node ./lib/bin.js",
     "start6": "node ./src/bin.js",
     "watch": "nodemon ./lib/bin.js",
-    "watch6": "nodemon ./src/bin.js"
+    "watch6": "nodemon ./src/bin.js",
+    "test-server": "tape -r babel-register \"./tests/test-server.js\""
   },
   "author": "Matthew McMahon",
   "license": "MIT",
