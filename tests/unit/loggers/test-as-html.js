@@ -14,7 +14,8 @@ runTest('Testing "asHTML" logger with an unsafe request URI ... ',
   'Unsafe request URI should be escaped.')
 
 function runTest (title, inputPath, outputPath, message) {
-  const response = { headers: {},
+  const mockResponse = {
+    headers: {},
     body: '',
     setHeader (header, value) {
       this.headers[header] = value
@@ -23,44 +24,39 @@ function runTest (title, inputPath, outputPath, message) {
       this.body = this.body + str
     }
   }
-  const request = { host: 'mock-host',
-    port: '80',
+  const mockRequest = {
+    host: 'mock-host',
+    port: '8080',
     url: inputPath,
-    res: response
+    res: mockResponse,
+    req: {
+      headers: {
+        host: 'mock-host:8080'
+      }
+    }
   }
 
   // Build the HTML page response from our request.
-  asHTML(request)
+  asHTML(mockRequest)
 
   // Test the response for required outputs.
   test(title, (t) => {
-    const body = response.body
+    const body = mockResponse.body
 
-    const openingTag = '<pre id="received">'
-    const openingTagLocation = body.indexOf(openingTag)
-    const start = openingTagLocation + openingTag.length
-
-    const closingTag = '</pre>'
-    const closingTagLocation =
-      openingTagLocation === -1 ? -1 : body.indexOf(closingTag, start)
-    const end = closingTagLocation
-
-    t.equal(response.headers['Content-Type'],
+    const sentAsTag = `<pre id="sent">http://${mockRequest.host}:${mockRequest.port}${outputPath}</pre>`
+    const receivedAsTag = `<pre id="received">http://${mockRequest.host}:${mockRequest.port}${outputPath}</pre>`
+    t.equal(mockResponse.headers['Content-Type'],
       'text/html',
       'response "Content-Type" header should be "text/html".')
-
     t.equal(typeof body, 'string',
       '`response.body` should be a string.')
     t.notEqual(body, '',
       '`response.body` should NOT be an empty string.')
-    t.notEqual(openingTagLocation, -1,
-      `The opening tag \`${openingTag}\` should have a nonnegative index.`)
-    t.equal((closingTagLocation === -1), false,
-      `The closing tag \`${closingTag}\` should follow the opening tag.`)
-    t.equal(body.substring(start, end).trim(),
-      `http://${request.host}:${request.port}${outputPath}`,
-      message)
-
+    t.notEqual(body.indexOf(sentAsTag), -1,
+      `Body should contain the tag#sent: ${sentAsTag}`)
+    t.notEqual(body.indexOf(sentAsTag), -1,
+      `Body should contain the tag#received: ${receivedAsTag}`)
+    t.pass(message)
     t.end()
   })
 }
