@@ -4,28 +4,21 @@ module.exports = asHTML
 
 const escapeHTML = require('../utils/escape-html.js')
 
-function asHTML ({ host, port, url, res }) {
+function asHTML ({ req, host, port, url, res }) {
+  const hostSawRequest = escapeHTML(`http://${host}:${port}${url}`)
+  const clientRequested = escapeHTML(`http://${req.headers.host}${url}`)
   const htmlTemplateString = `<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>Echo Web Server</title>
-    <style>
-      #sent, #received {
-        margin-left: 2.5em;
-      }
-    </style>
-    <script>
-      window.addEventListener("load", function (event) {
-        document.getElementById("sent").textContent = decodeURI(document.URL)
-      });
-    </script>
+    <style>pre { margin-left: 2.5em; }</style>
   </head>
   <body>
     <p>You sent the request:</p>
-    <pre id="sent"></pre>
+    <pre>${clientRequested}</pre>
     <p>I saw the request:</p>
-    <pre id="received">${escapeHTML(`http://${host}:${port}${url}`)}</pre>
+    <pre>${hostSawRequest}</pre>
   </body>
 </html>
 ` // END HTMLTemplateString
