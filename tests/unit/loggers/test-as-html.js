@@ -23,10 +23,16 @@ function runTest (title, inputPath, outputPath, message) {
       this.body = this.body + str
     }
   }
-  const request = { host: 'mock-host',
+  const request = {
+    host: 'mock-host',
     port: '80',
     url: inputPath,
-    res: response
+    res: response,
+    req: {
+      headers: {
+        host: 'mock-host'
+      }
+    }
   }
 
   // Build the HTML page response from our request.
@@ -36,7 +42,7 @@ function runTest (title, inputPath, outputPath, message) {
   test(title, (t) => {
     const body = response.body
 
-    const openingTag = '<pre id="received">'
+    const openingTag = `<pre>http://mock-host:80/${inputPath}</pre>`
     const openingTagLocation = body.indexOf(openingTag)
     const start = openingTagLocation + openingTag.length
 
