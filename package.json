@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/lostcreation/echo-web-server.git"
   },
-  "description": "Minimilistic web server logs any request it recieves to the console and echos that request back to the user in a web page. No dependencies for deployment; minimal dependencies for development.",
+  "description": "Minimal web server logs any request it receives to the console and echos that request back to the user in a web page. No dependencies for deployment; minimal dependencies for development.",
   "keywords": [
     "echo",
     "server"
