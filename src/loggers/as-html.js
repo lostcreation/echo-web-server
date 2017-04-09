@@ -1,10 +1,13 @@
 'use strict'
 
-module.exports = asHTML
-
 const escapeHTML = require('../utils/escape-html.js')
 
-function asHTML ({ host, port, url, res }) {
+module.exports = ({ host, port, url, res } = {
+  host: '0.0.0.0',
+  port: 0,
+  url: '/',
+  res: undefined
+}) => {
   const htmlTemplateString = `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,7 +31,7 @@ function asHTML ({ host, port, url, res }) {
     <pre id="received">${escapeHTML(`http://${host}:${port}${url}`)}</pre>
   </body>
 </html>
-` // END HTMLTemplateString
+` // END htmlTemplateString
 
   res.setHeader('Content-Type', 'text/html')
   res.write(htmlTemplateString)
