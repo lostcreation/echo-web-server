@@ -24,7 +24,7 @@ addLogger(logAsHTML, logToConsole)
 // but it's safe enough for testing.
 addLogger(({host, port, url}) => {
   if (url === '/stop/stop/stop') {
-    console.log(`[EWS] ${host}:${port}: Recieved shutdown request "/stop/stop/stop"`)
+    console.log(`[EWS] ${host}:${port}: Received shutdown request "/stop/stop/stop"`)
     stop(console.log.bind(console.log, `[EWS] ${host}:${port}: Is shutting down!`))
   }
 })
