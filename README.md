@@ -3,8 +3,8 @@
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-**echo-web-server** is a minimalistic [Node.js&reg;][1] web server that logs client requests to the terminal and echoes them back to the client as a basic HTML page.
-The [ES6/ES2015][2] source code in `src` is fully compatible with [*Node.js* v6][3] without transformation or runtime flags.
+**echo-web-server** is a minimal [Node.js&reg;][1] web server that logs client requests to the terminal and echoes them back to the client with a basic HTML page.
+The [ES6/ES2015][2] source code in `src` is fully compatible with [*Node.js* v6][3], and later, without transformation or runtime flags.
 Developer dependencies are necessary only if you want to modify the *ES6* source code and then run *EWS* on a *v4*, or earlier, *Node.js* runtime.
 
 
@@ -17,7 +17,7 @@ Run *EWS* Globally
 ```
 Will start up an echo web server, and start logging requests it receives to the terminal.
 
-For example, if a client requests `http://localhost:8080/my/request/is super`, *EWS* will log the following to the terminal:
+For example, if a client requests "`http://localhost:8080/my/request/is super`", *EWS* will log the following to the terminal:
 ```
 Client [127.0.0.1] Requested: /my/request/is super!
 ```
